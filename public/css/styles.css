@@ -1,0 +1,888 @@
+/* PROJECT STELLAR: ISRO LUNAR MISSION CONTROL - NEUMORPHIC SOFT UI & 3D TV SCREEN RIDGE VIEWFINDER */
+
+@import url('https://fonts.googleapis.com/css2?family=Doto:ROND,wght@100,400..900&family=Google+Sans+Flex:wght@300;400;500;600;700;800;900&display=swap');
+
+/* GLOBAL ROUNDED DOTO VARIATION SETTINGS (PERFECT CIRCULAR DOT MATRIX) */
+.startup-title, .startup-footer, .workspace-title, .workspace-about, .theme-toggle-btn, .processing-title, .processing-sub {
+    font-variation-settings: 'ROND' 100 !important;
+}
+
+:root {
+    --bg-page: #151413;          /* Warm charcoal canvas for deep Neumorphism */
+    --card-bg: #151413;          /* Cards match canvas background for 3D extrusion */
+    --pill-inactive: #151413;    /* Inactive pills match background with tactile shadows */
+    --pill-active-bg: #ffffff;   /* Pure white active pill button */
+    --pill-active-text: #000000; /* Crisp black text on active white pill */
+    --text-primary: #ffffff;
+    --text-muted: #a69c97;       /* Warm subtle text tint */
+
+    /* HIGHLY PRONOUNCED DARK NEUMORPHIC DUAL SHADOW SYSTEM */
+    --neu-extruded: 16px 16px 36px #060505, -16px -16px 36px #262423, inset 1px 1px 1px rgba(255, 255, 255, 0.08);
+    --neu-extruded-sm: 8px 8px 18px #060505, -8px -8px 18px #262423;
+    --neu-inset: inset 8px 8px 18px #060505, inset -8px -8px 18px #262423;
+    --neu-active-glow: 6px 6px 20px rgba(0, 0, 0, 0.75), -4px -4px 16px rgba(255, 255, 255, 0.35);
+    --stage-bezel-shadow: 18px 18px 40px #050404, -18px -18px 40px #272524, inset 1px 1px 2px rgba(255, 255, 255, 0.18);
+}
+
+/* HIGHLY PRONOUNCED LIGHT NEUMORPHIC THEME SYSTEM */
+[data-theme="light"] {
+    --bg-page: #e6e3df;          /* Soft warm off-white canvas */
+    --card-bg: #e6e3df;          /* Cards match canvas for 3D Light Neumorphism */
+    --pill-inactive: #e6e3df;
+    --pill-active-bg: #151413;   /* Deep charcoal active pill in light mode */
+    --pill-active-text: #ffffff; /* Crisp white text on active dark pill */
+    --text-primary: #151413;
+    --text-muted: #4e4a46;       /* Crisp high-contrast muted text in light mode */
+
+    /* HIGHLY PRONOUNCED LIGHT NEUMORPHIC DUAL SHADOW SYSTEM */
+    --neu-extruded: 16px 16px 32px #bebbb7, -16px -16px 32px #ffffff, inset 1px 1px 1px rgba(255, 255, 255, 0.8);
+    --neu-extruded-sm: 8px 8px 18px #bebbb7, -8px -8px 18px #ffffff;
+    --neu-inset: inset 8px 8px 16px #bebbb7, inset -8px -8px 16px #ffffff;
+    --neu-active-glow: 6px 6px 20px rgba(0, 0, 0, 0.3), -4px -4px 16px rgba(255, 255, 255, 0.9);
+    --stage-bezel-shadow: 18px 18px 40px #bebbb7, -18px -18px 40px #ffffff, inset 1px 1px 2px rgba(255, 255, 255, 0.9);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Google Sans Flex', 'Segoe UI', sans-serif;
+    transition: background-color 0.35s ease, color 0.35s ease, box-shadow 0.35s ease;
+}
+
+html, body {
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+}
+
+/* ==========================================================================
+   1. STARTUP LANDING PAGE (ANIMATED SPACE CANVAS + 3D INTERLOCKED G & MOON)
+   ========================================================================== */
+
+.page-view {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.page-view.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(1.03);
+}
+
+/* STARTUP CONTAINER */
+.startup-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #000000;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 3rem 1rem;
+    overflow: hidden;
+}
+
+.startup-container.warping {
+    animation: cameraShake 0.75s ease-in-out;
+}
+
+canvas#spaceCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.startup-title {
+    font-family: 'Doto', monospace;
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: 16px;
+    color: #ffffff;
+    text-transform: uppercase;
+    margin-top: 1rem;
+    user-select: none;
+    text-shadow: none;
+    z-index: 20;
+}
+
+.startup-go-stage {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+    z-index: 20;
+    transition: transform 0.75s cubic-bezier(0.7, 0, 0.84, 0), filter 0.75s ease, opacity 0.75s ease;
+}
+
+.startup-go-stage.warping {
+    transform: scale(2.5);
+    filter: blur(10px) brightness(2.2);
+    opacity: 0;
+}
+
+.letter-g {
+    font-family: 'Product Sans', 'Google Sans Flex', sans-serif;
+    font-size: 48vh;
+    font-weight: 900;
+    color: #b0b0b0;
+    -webkit-text-stroke: 6px #b0b0b0;
+    paint-order: stroke fill;
+    line-height: 0.8;
+    margin-right: -17vh;
+    transition: transform 0.3s ease, color 0.3s ease, -webkit-text-stroke-color 0.3s ease;
+    text-shadow: none !important;
+}
+
+.letter-g-back { position: relative; z-index: 1; }
+
+.moon-o-img {
+    height: 38vh;
+    width: 38vh;
+    object-fit: contain;
+    filter: drop-shadow(0 0 45px rgba(255, 255, 255, 0.3));
+    transition: transform 0.3s ease, filter 0.3s ease;
+    z-index: 2;
+}
+
+.letter-g-front {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 3;
+    pointer-events: none;
+    clip-path: polygon(0 44%, 100% 44%, 100% 100%, 0 100%);
+    text-shadow: none !important;
+    filter: none !important;
+}
+
+.startup-go-stage:hover .letter-g {
+    color: #ffffff;
+    -webkit-text-stroke-color: #ffffff;
+    transform: scale(1.04);
+}
+
+.startup-go-stage:hover .moon-o-img {
+    transform: scale(1.04);
+    filter: drop-shadow(0 0 60px rgba(255, 255, 255, 0.5));
+}
+
+.startup-footer {
+    font-family: 'Doto', monospace;
+    font-size: 1.3rem;
+    font-weight: 800;
+    letter-spacing: 10px;
+    color: #d0d0d0;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-bottom: 1rem;
+    transition: color 0.2s ease;
+    user-select: none;
+    z-index: 20;
+}
+
+.startup-footer:hover {
+    color: #ffffff;
+}
+
+.timejump-flash-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.35) 0%, rgba(180, 180, 180, 0.1) 45%, rgba(0, 0, 0, 0) 80%);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 300;
+    transition: opacity 0.25s ease-out;
+}
+
+.timejump-flash-overlay.active { opacity: 1; }
+
+@keyframes cameraShake {
+    0% { transform: translate(0, 0); }
+    20% { transform: translate(-3px, 2px); }
+    40% { transform: translate(4px, -3px); }
+    60% { transform: translate(-3px, 4px); }
+    80% { transform: translate(3px, -2px); }
+    100% { transform: translate(0, 0); }
+}
+
+/* DEDICATED ABOUT US PAGE VIEW (FULL SCREEN NEUMORPHIC LAYOUT) */
+.about-page-container {
+    height: calc(100vh - 96px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 2.5rem 2.5rem 2.5rem;
+    background: var(--bg-page);
+}
+
+.about-page-card {
+    background: var(--card-bg);
+    border-radius: 32px !important;
+    box-shadow: var(--neu-extruded);
+    width: 920px;
+    max-width: 95vw;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 2.5rem 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+}
+
+.about-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.about-team-title {
+    font-family: 'Doto', monospace;
+    font-size: 2.2rem;
+    font-weight: 800;
+    letter-spacing: 6px;
+    color: var(--text-primary);
+    font-variation-settings: 'ROND' 100 !important;
+}
+
+.about-badge {
+    background: var(--card-bg);
+    box-shadow: var(--neu-inset);
+    padding: 8px 18px;
+    border-radius: 50px !important;
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+}
+
+.about-section-box {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.about-section-title {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: var(--text-muted);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.about-text {
+    font-size: 1.05rem;
+    color: var(--text-primary);
+    line-height: 1.6;
+    font-weight: 500;
+}
+
+.team-grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+}
+
+.team-member-card {
+    background: var(--card-bg);
+    border-radius: 20px !important;
+    padding: 1.2rem 1.4rem;
+    box-shadow: var(--neu-extruded-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+}
+
+.team-member-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--neu-active-glow);
+}
+
+.member-name {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+.member-role {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.about-guarantee-banner {
+    background: var(--card-bg);
+    border-radius: 20px !important;
+    padding: 1.4rem 1.8rem;
+    box-shadow: var(--neu-inset);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 4px;
+}
+
+.guarantee-title {
+    font-family: 'Doto', monospace;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    letter-spacing: 3px;
+    font-variation-settings: 'ROND' 100 !important;
+}
+
+.guarantee-desc {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.about-close {
+    position: absolute;
+    top: 1rem;
+    right: 1.2rem;
+    font-family: monospace;
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    cursor: pointer;
+}
+
+.about-close:hover { color: var(--text-primary); }
+
+/* ==========================================================================
+   2. MISSION CONTROL WORKSPACE VIEW (3D RECESSED TV SCREEN VIEWFINDER)
+   ========================================================================== */
+
+.workspace-header {
+    height: 96px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2.5rem;
+    background: var(--bg-page);
+}
+
+.workspace-title {
+    font-family: 'Doto', monospace;
+    font-size: 2.2rem;
+    font-weight: 800;
+    letter-spacing: 18px;
+    color: var(--text-primary);
+    cursor: pointer;
+    user-select: none;
+    text-shadow: none !important;
+}
+
+.header-right-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.theme-toggle-btn {
+    background: var(--card-bg);
+    color: var(--text-primary);
+    border-radius: 50px !important;
+    padding: 11px 20px;
+    font-family: 'Doto', monospace;
+    font-size: 0.85rem;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: var(--neu-extruded-sm);
+    transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+    user-select: none;
+    letter-spacing: 2px;
+}
+
+.theme-toggle-btn:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: var(--neu-active-glow);
+}
+
+.theme-toggle-btn:active {
+    transform: scale(0.92) !important;
+}
+
+.workspace-about {
+    font-family: 'Doto', monospace;
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: 10px;
+    color: var(--text-primary);
+    cursor: pointer;
+    user-select: none;
+    text-shadow: none !important;
+    transition: color 0.2s ease;
+}
+
+.workspace-about:hover {
+    opacity: 0.8;
+}
+
+/* MAIN DASHBOARD LAYOUT */
+.workspace-dashboard {
+    height: calc(100vh - 96px);
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    padding: 0.2rem 2.5rem 1.8rem 2.5rem;
+    background: var(--bg-page);
+}
+
+.workspace-top-row {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 440px;
+    gap: 1.2rem;
+    min-height: 0;
+}
+
+/* LEFT COLUMN: 3D TV MONITOR SCREEN RIDGE FRAME & VIEWFINDER */
+.stage-card {
+    background: var(--card-bg);
+    border-radius: 32px !important;
+    padding: 14px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--stage-bezel-shadow);
+}
+
+.stage-card:fullscreen {
+    width: 100vw !important;
+    height: 100vh !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+}
+
+.stage-fullscreen-btn {
+    position: absolute;
+    top: 26px;
+    right: 26px;
+    width: 42px;
+    height: 42px;
+    background: var(--card-bg);
+    border: none !important;
+    border-radius: 50% !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-primary);
+    cursor: pointer;
+    z-index: 40;
+    backdrop-filter: blur(8px);
+    transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: var(--neu-extruded-sm);
+}
+
+.stage-fullscreen-btn:hover {
+    transform: scale(1.1);
+    box-shadow: var(--neu-active-glow);
+}
+
+.stage-fullscreen-btn:active {
+    transform: scale(0.9) !important;
+}
+
+/* HIGH-TECH DOTO DOT MATRIX PROCESSING OVERLAY */
+.processing-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(11, 10, 9, 0.94);
+    backdrop-filter: blur(14px);
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+    border-radius: 20px !important;
+}
+
+.processing-overlay.active { opacity: 1; pointer-events: all; }
+
+.processing-title {
+    font-family: 'Doto', monospace;
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    text-shadow: 0 0 16px rgba(255, 255, 255, 0.6);
+}
+
+.progress-bar-container {
+    width: 340px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 50px !important;
+    overflow: hidden;
+    box-shadow: var(--neu-inset);
+}
+
+.progress-bar-fill {
+    width: 0%;
+    height: 100%;
+    background: #ffffff;
+    border-radius: 50px !important;
+    box-shadow: 0 0 14px rgba(255, 255, 255, 0.95);
+    transition: width 0.1s linear;
+}
+
+.processing-sub {
+    font-family: 'Doto', monospace;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* SLIDER FRAME - RECESSED INSET CRT/OLED TV SCREEN WITH RIDGE & DEPTH */
+.slider-frame {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    user-select: none;
+    background: #000000;
+    border-radius: 20px !important;
+    box-shadow: inset 8px 8px 24px rgba(0, 0, 0, 0.98), inset -5px -5px 16px rgba(255, 255, 255, 0.1), inset 0 0 45px rgba(0, 0, 0, 0.9);
+}
+
+.img-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.04);
+}
+
+.img-layer:not([src]), .img-layer[src=""] {
+    display: none !important;
+}
+
+.img-after-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+}
+
+.slider-handle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    background: #ffffff;
+    z-index: 30;
+    transform: translateX(-50%);
+    cursor: ew-resize;
+}
+
+.slider-pill-handle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 28px;
+    height: 62px;
+    background: var(--bg-page);
+    border: none !important;
+    border-radius: 50px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--neu-extruded-sm);
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+}
+
+.slider-handle:hover .slider-pill-handle {
+    transform: translate(-50%, -50%) scale(1.1);
+    box-shadow: var(--neu-active-glow);
+}
+
+.slider-center-line {
+    width: 2px;
+    height: 24px;
+    background: var(--text-primary);
+    border-radius: 2px;
+}
+
+.slider-range-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: ew-resize;
+    z-index: 35;
+}
+
+/* RIGHT COLUMN: CARDS STACK */
+.sidebar-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+/* NEUMORPHIC 2x2 METRIC CARDS GRID */
+.metrics-2x2-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.1rem;
+}
+
+.metric-card {
+    background: var(--card-bg);
+    border-radius: 28px !important;
+    padding: 2.2rem 1.2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-shadow: var(--neu-extruded);
+    transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.28s ease;
+}
+
+.metric-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--neu-active-glow);
+}
+
+.metric-main-val {
+    font-size: 1.68rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    line-height: 1.15;
+    margin-bottom: 6px;
+}
+
+.metric-sub-lbl, .metric-lbl {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+/* NEUMORPHIC SIDEBAR MODE TOGGLE CONTAINER (3 MODES: 4X SUPER-RES | HAZARD MASK | SLOPE MAP) */
+.sidebar-mode-toggle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.mode-pill-toggle {
+    display: flex;
+    background: var(--card-bg);
+    padding: 6px;
+    border-radius: 50px !important;
+    gap: 4px;
+    width: 100%;
+    box-shadow: var(--neu-inset);
+}
+
+.pill-btn {
+    flex: 1;
+    text-align: center;
+    padding: 12px 10px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 50px !important;
+    cursor: pointer;
+    background: transparent;
+    color: var(--text-primary);
+    transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+    white-space: nowrap;
+}
+
+.pill-btn:hover:not(.active) {
+    transform: scale(1.03);
+    color: var(--text-primary);
+}
+
+.pill-btn:active {
+    transform: scale(0.92) !important;
+}
+
+.pill-btn.active {
+    background: var(--pill-active-bg);
+    color: var(--pill-active-text);
+    box-shadow: var(--neu-active-glow);
+}
+
+/* NEUMORPHIC HAZARD LANDING SUMMARY CARD */
+.summary-card {
+    background: var(--card-bg);
+    border-radius: 28px !important;
+    padding: 1.6rem 1.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    flex: 1;
+    box-shadow: var(--neu-extruded);
+}
+
+.summary-title {
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: var(--text-muted);
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+}
+
+.summary-divider {
+    height: 1px;
+    background: rgba(150, 150, 150, 0.15);
+    margin-bottom: 0.2rem;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.92rem;
+    color: var(--text-primary);
+}
+
+.summary-item span { color: var(--text-primary); font-weight: 500; }
+.summary-item strong { color: var(--text-primary); font-weight: 700; }
+
+/* INLINE ANALYTICS & SFD GRAPHS INSIDE SUMMARY CARD */
+.card-analytics-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+.card-analytics-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+}
+
+.mini-chart-box {
+    background: var(--card-bg);
+    border-radius: 18px !important;
+    padding: 0.75rem 0.75rem 0.6rem 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    box-shadow: var(--neu-inset);
+}
+
+.mini-chart-lbl {
+    font-family: 'Google Sans Flex', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.mini-sfd-bars {
+    height: 75px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    gap: 4px;
+    padding-top: 10px;
+}
+
+.mini-elev-svg {
+    height: 75px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* BOTTOM SECTION: NEUMORPHIC 5 SELECTED LANDING SPOTS BAR */
+.spots-bar-card {
+    background: var(--card-bg);
+    border-radius: 28px !important;
+    padding: 1.2rem 1.6rem;
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    box-shadow: var(--neu-extruded);
+}
+
+.spots-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 1fr;
+    gap: 1.1rem;
+}
+
+.spot-pill-btn {
+    background: var(--pill-inactive);
+    color: var(--text-primary);
+    border-radius: 50px !important;
+    padding: 13px 18px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    box-shadow: var(--neu-extruded-sm);
+    transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+}
+
+.spot-pill-btn.active {
+    background: var(--pill-active-bg);
+    color: var(--pill-active-text);
+    box-shadow: var(--neu-active-glow);
+}
+
+.spot-pill-btn:hover:not(.active) {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: var(--neu-extruded-sm), var(--neu-active-glow);
+}
+
+.spot-pill-btn:active {
+    transform: scale(0.92) !important;
+}

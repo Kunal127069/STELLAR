@@ -1,0 +1,114 @@
+{
+  "samples": {
+    "shackleton": {
+      "dataset_id": "shackleton",
+      "name": "1. Shackleton",
+      "desc": "The central axis point of lunar south pole exploration",
+      "metadata": { "coordinates": { "lat": -89.9, "lon": 0.0 }, "elevation_m": -4200.0, "illumination": "0.4% Direct Sunlight" },
+      "metrics": { "psnr_db": 31.42, "ssim_score": 0.924, "niqe_score": 3.12, "radiometric_fidelity_percent": 99.81 },
+      "hazard_stats": { "safe_landing_zone_percent": 84.6, "boulder_count": 37, "steep_slope_count": 12, "max_slope_degrees": 5.4 },
+      "landing_ellipse": { "dimensions": "500m × 500m", "confidence": "98.4%", "risk_level": "OPTIMAL SAFE", "safe_prob": 94.6 },
+      "sfd_data": [
+        { "size": "<0.5m", "count": 145 },
+        { "size": "0.5-1m", "count": 82 },
+        { "size": "1-2m", "count": 28 },
+        { "size": ">2m", "count": 9 }
+      ],
+      "elevation_profile": [0, -150, -420, -1100, -2800, -4200, -3900, -1200, -300, 0],
+      "images": {
+        "raw_original": "/images/processed/shackleton_raw.jpg",
+        "enhanced_shadow": "/images/processed/shackleton_enhanced.jpg",
+        "hazard_mask": "/images/processed/shackleton_hazard.jpg",
+        "slope_map": "/images/processed/shackleton_slope.jpg"
+      }
+    },
+    "shoemaker": {
+      "dataset_id": "shoemaker",
+      "name": "2. Shoemaker",
+      "desc": "A major cold-trap and ice reservoir",
+      "metadata": { "coordinates": { "lat": -88.1, "lon": 45.6 }, "elevation_m": -3800.0, "illumination": "1.2% Direct Sunlight" },
+      "metrics": { "psnr_db": 28.84, "ssim_score": 0.898, "niqe_score": 3.45, "radiometric_fidelity_percent": 99.45 },
+      "hazard_stats": { "safe_landing_zone_percent": 53.3, "boulder_count": 226, "steep_slope_count": 248, "max_slope_degrees": 12.8 },
+      "landing_ellipse": { "dimensions": "500m × 500m", "confidence": "98.4%", "risk_level": "NOMINAL SAFE", "safe_prob": 53.3 },
+      "sfd_data": [
+        { "size": "<0.5m", "count": 497 },
+        { "size": "0.5-1m", "count": 310 },
+        { "size": "1-2m", "count": 178 },
+        { "size": ">2m", "count": 48 }
+      ],
+      "elevation_profile": [0, -150, -420, -1100, -2800, -3500, -3900, -1200, -300, 0],
+      "images": {
+        "raw_original": "/images/processed/shoemaker_raw.jpg",
+        "enhanced_shadow": "/images/processed/shoemaker_enhanced.jpg",
+        "hazard_mask": "/images/processed/shoemaker_hazard.jpg",
+        "slope_map": "/images/processed/shoemaker_slope.jpg"
+      }
+    },
+    "faustini": {
+      "dataset_id": "faustini",
+      "name": "3. Faustini",
+      "desc": "Heavily shadowed ancient crater",
+      "metadata": { "coordinates": { "lat": -87.3, "lon": 77.0 }, "elevation_m": -3100.0, "illumination": "2.1% Direct Sunlight" },
+      "metrics": { "psnr_db": 23.59, "ssim_score": 0.912, "niqe_score": 3.42, "radiometric_fidelity_percent": 98.92 },
+      "hazard_stats": { "safe_landing_zone_percent": 36.9, "boulder_count": 217, "steep_slope_count": 111, "max_slope_degrees": 18.5 },
+      "landing_ellipse": { "dimensions": "500m × 500m", "confidence": "98.4%", "risk_level": "MODERATE RISK", "safe_prob": 36.9 },
+      "sfd_data": [
+        { "size": "<0.5m", "count": 477 },
+        { "size": "0.5-1m", "count": 280 },
+        { "size": "1-2m", "count": 172 },
+        { "size": ">2m", "count": 45 }
+      ],
+      "elevation_profile": [0, -100, -300, -900, -2200, -3100, -2700, -800, -200, 0],
+      "images": {
+        "raw_original": "/images/processed/faustini_raw.jpg",
+        "enhanced_shadow": "/images/processed/faustini_enhanced.jpg",
+        "hazard_mask": "/images/processed/faustini_hazard.jpg",
+        "slope_map": "/images/processed/faustini_slope.jpg"
+      }
+    },
+    "haworth": {
+      "dataset_id": "haworth",
+      "name": "4. Haworth",
+      "desc": "Located within the South Pole-Aitken Basin",
+      "metadata": { "coordinates": { "lat": -87.4, "lon": -5.1 }, "elevation_m": -3900.0, "illumination": "0.8% Direct Sunlight" },
+      "metrics": { "psnr_db": 26.94, "ssim_score": 0.938, "niqe_score": 3.01, "radiometric_fidelity_percent": 99.66 },
+      "hazard_stats": { "safe_landing_zone_percent": 44.1, "boulder_count": 232, "steep_slope_count": 206, "max_slope_degrees": 14.2 },
+      "landing_ellipse": { "dimensions": "500m × 500m", "confidence": "98.4%", "risk_level": "MODERATE RISK", "safe_prob": 44.1 },
+      "sfd_data": [
+        { "size": "<0.5m", "count": 510 },
+        { "size": "0.5-1m", "count": 295 },
+        { "size": "1-2m", "count": 182 },
+        { "size": ">2m", "count": 50 }
+      ],
+      "elevation_profile": [0, -120, -400, -1300, -3100, -3900, -3500, -1100, -350, 0],
+      "images": {
+        "raw_original": "/images/processed/haworth_raw.jpg",
+        "enhanced_shadow": "/images/processed/haworth_enhanced.jpg",
+        "hazard_mask": "/images/processed/haworth_hazard.jpg",
+        "slope_map": "/images/processed/haworth_slope.jpg"
+      }
+    },
+    "sverdrup": {
+      "dataset_id": "sverdrup",
+      "name": "5. Sverdrup",
+      "desc": "Directly adjacent to Shackleton",
+      "metadata": { "coordinates": { "lat": -88.3, "lon": -152.0 }, "elevation_m": -3700.0, "illumination": "0.6% Direct Sunlight" },
+      "metrics": { "psnr_db": 32.15, "ssim_score": 0.945, "niqe_score": 3.08, "radiometric_fidelity_percent": 99.85 },
+      "hazard_stats": { "safe_landing_zone_percent": 45.6, "boulder_count": 235, "steep_slope_count": 257, "max_slope_degrees": 11.6 },
+      "landing_ellipse": { "dimensions": "500m × 500m", "confidence": "98.4%", "risk_level": "MODERATE RISK", "safe_prob": 45.6 },
+      "sfd_data": [
+        { "size": "<0.5m", "count": 517 },
+        { "size": "0.5-1m", "count": 300 },
+        { "size": "1-2m", "count": 185 },
+        { "size": ">2m", "count": 50 }
+      ],
+      "elevation_profile": [0, -130, -420, -1350, -3100, -3700, -3300, -1150, -340, 0],
+      "images": {
+        "raw_original": "/images/processed/sverdrup_raw.jpg",
+        "enhanced_shadow": "/images/processed/sverdrup_enhanced.jpg",
+        "hazard_mask": "/images/processed/sverdrup_hazard.jpg",
+        "slope_map": "/images/processed/sverdrup_slope.jpg"
+      }
+    }
+  }
+}

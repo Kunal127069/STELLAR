@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STELLAR — ISRO Lunar Satellite AI Mission Control</title>
+    <!-- Fonts: Doto (Matrix Dot) & Google Sans Flex -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Doto:ROND,wght@100,400..900&family=Google+Sans+Flex:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+    <!-- TIMEJUMP FLASH LIGHT OVERLAY -->
+    <div id="timejump-flash" class="timejump-flash-overlay"></div>
+
+    <!-- ====================================================================
+         1. STARTUP LANDING PAGE (ANIMATED STARRY SPACE + 3D INTERLOCKED G & MOON)
+         ==================================================================== -->
+    <div id="view-startup" class="page-view">
+        <div class="startup-container">
+
+            <!-- MOVING & TWINKLING STARRY SPACE BACKGROUND CANVAS -->
+            <canvas id="spaceCanvas"></canvas>
+
+            <!-- TOP TITLE: STELLAR (DOTO DOT MATRIX FONT) -->
+            <div class="startup-title">STELLAR</div>
+
+            <!-- CENTER "GO" INTERLOCKING CONTAINER (3D WOVEN G + MOON PNG) -->
+            <div class="startup-go-stage" onclick="switchView('workspace')" title="Launch ISRO Mission Control Workspace">
+                <!-- Layer 1: Upper part of G sits BEHIND the Moon -->
+                <span class="letter-g letter-g-back">G</span>
+
+                <!-- Layer 2: Dark Moon PNG -->
+                <img src="/images/dark_moon.png" alt="O" class="moon-o-img">
+
+                <!-- Layer 3: Lower part of G sits IN FRONT of the Moon -->
+                <span class="letter-g letter-g-front">G</span>
+            </div>
+
+            <!-- BOTTOM LINK: ABOUT US (DOTO DOT MATRIX FONT) -->
+            <div class="startup-footer" onclick="switchView('about')">ABOUT US</div>
+
+        </div>
+    </div>
+
+
+    <!-- ====================================================================
+         2. DEDICATED ABOUT US PAGE VIEW (SEPARATE FULL SCREEN)
+         ==================================================================== -->
+    <div id="view-about" class="page-view hidden">
+        <!-- TOP BAR: LEFT S T E L L A R & RIGHT CLOSE / DASHBOARD -->
+        <header class="workspace-header">
+            <div class="workspace-title" onclick="switchView('workspace')" title="Return to Mission Control">
+                S T E L L A R
+            </div>
+
+            <div class="header-right-actions">
+                <div class="theme-toggle-btn" onclick="toggleTheme()" id="theme-toggle-btn-about" title="Toggle Light / Dark Neumorphic Theme">
+                    <span class="theme-icon-text">LIGHT MODE</span>
+                </div>
+                <div class="workspace-about" onclick="switchView('workspace')" title="Return to Dashboard">
+                    [X] CLOSE
+                </div>
+            </div>
+        </header>
+
+        <!-- ABOUT PAGE CONTENT STAGE -->
+        <div class="about-page-container">
+            <div class="about-page-card">
+                
+                <!-- HEADER SECTION -->
+                <div class="about-page-header">
+                    <div class="about-team-title">TEAM STELLAR</div>
+                    <div class="about-badge">ISRO PROBLEM STATEMENT</div>
+                </div>
+
+                <div class="summary-divider"></div>
+
+                <!-- MISSION PROBLEM STATEMENT -->
+                <div class="about-section-box">
+                    <div class="about-section-title">ISRO PROBLEM STATEMENT</div>
+                    <p class="about-text">
+                        Planetary Image Super-Resolution, Shadow Curve Enhancement & Hazard Segmentation for Lunar Permanently Shadowed Regions (PSRs).
+                    </p>
+                </div>
+
+                <!-- TEAM MEMBERS & ROLES GRID -->
+                <div class="about-section-box">
+                    <div class="about-section-title">TEAM MEMBERS & ROLES</div>
+                    <div class="team-grid-container">
+                        <div class="team-member-card">
+                            <div class="member-name">Kunal</div>
+                            <div class="member-role">GIS & Data Pipeline Lead</div>
+                        </div>
+                        <div class="team-member-card">
+                            <div class="member-name">Vardaan</div>
+                            <div class="member-role">Frontend Lead & Hazard Segmentation Engine</div>
+                        </div>
+                        <div class="team-member-card">
+                            <div class="member-name">Krish</div>
+                            <div class="member-role">Shadow Enhancement AI Lead</div>
+                        </div>
+                        <div class="team-member-card">
+                            <div class="member-name">Madhavi</div>
+                            <div class="member-role">4× Super-Resolution AI Lead</div>
+                        </div>
+                        <div class="team-member-card">
+                            <div class="member-name">Dhruv</div>
+                            <div class="member-role">Backend & System Integration</div>
+                        </div>
+                        <div class="team-member-card">
+                            <div class="member-name">Riddhi</div>
+                            <div class="member-role">Pitch Lead & Quality Assurance</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RADIOMETRIC GUARANTEE FOOTER -->
+                <div class="about-guarantee-banner">
+                    <div class="guarantee-title">ZERO-HALLUCINATION GUARANTEE</div>
+                    <div class="guarantee-desc">100% Physics Radiometric Fidelity with Real Orbital GeoTIFF Processing</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ====================================================================
+         3. ISRO MISSION CONTROL WORKSPACE VIEW
+         ==================================================================== -->
+    <div id="view-workspace" class="page-view hidden">
+
+        <!-- TOP BAR: LEFT ALIGNED S T E L L A R & RIGHT ALIGNED ABOUT US + THEME TOGGLE -->
+        <header class="workspace-header">
+            <div class="workspace-title" onclick="switchView('startup')" title="Return to Startup Screen">
+                S T E L L A R
+            </div>
+
+            <div class="header-right-actions">
+                <div class="theme-toggle-btn" onclick="toggleTheme()" id="theme-toggle-btn" title="Toggle Light / Dark Neumorphic Theme">
+                    <span class="theme-icon-text">LIGHT MODE</span>
+                </div>
+                <div class="workspace-about" onclick="switchView('about')">
+                    ABOUT US
+                </div>
+            </div>
+        </header>
+
+        <!-- MAIN DASHBOARD CONTENT -->
+        <div class="workspace-dashboard">
+
+            <!-- MAIN TOP SECTION: STAGE SLIDER + METRICS & SUMMARY CARDS -->
+            <div class="workspace-top-row">
+
+                <!-- LEFT COLUMN: IMAGE COMPARISON STAGE CARD -->
+                <div class="stage-card" id="stage-card">
+
+                    <!-- FULLSCREEN OVERLAY BUTTON -->
+                    <div class="stage-fullscreen-btn" onclick="toggleStageFullscreen()" title="Toggle Fullscreen Viewfinder">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+                        </svg>
+                    </div>
+                    
+                    <!-- HIGH-TECH DOTO DOT MATRIX PROCESSING OVERLAY -->
+                    <div class="processing-overlay" id="processing-overlay">
+                        <div class="processing-title">
+                            PROCESSING 16-BIT GEOTIFF RASTER...
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-fill" id="progress-fill"></div>
+                        </div>
+                        <div class="processing-sub" id="processing-status-step">
+                            RUNNING ZERO-DCE++ SHADOW CURVE & SWINIR 4X MODEL (0.048S)
+                        </div>
+                    </div>
+
+                    <!-- INTERACTIVE SLIDER FRAME -->
+                    <div class="slider-frame" id="slider-frame">
+                        <!-- BEFORE IMAGE (DARK RAW) -->
+                        <img id="img-before" class="img-layer" alt="">
+
+                        <!-- AFTER IMAGE OVERLAY (AI ENHANCED / HAZARD / SLOPE) -->
+                        <div class="img-after-overlay" id="img-overlay">
+                            <img id="img-after" class="img-layer" alt="">
+                        </div>
+
+                        <!-- CENTER SLIDER HANDLE WITH VERTICAL PILL & CENTER LINE -->
+                        <div class="slider-handle" id="slider-handle">
+                            <div class="slider-pill-handle">
+                                <div class="slider-center-line"></div>
+                            </div>
+                        </div>
+
+                        <!-- RANGE INPUT OVERLAY -->
+                        <input type="range" min="0" max="100" value="50" class="slider-range-input" id="slider-range">
+                    </div>
+                </div>
+
+                <!-- RIGHT COLUMN: 2x2 METRICS + MODE TOGGLE + SUMMARY CARD WITH EMBEDDED ANALYTICS & SFD -->
+                <div class="sidebar-cards">
+
+                    <!-- 2x2 METRIC CARDS GRID -->
+                    <div class="metrics-2x2-grid">
+                        <div class="metric-card">
+                            <div class="metric-main-val" id="val-psnr">+31.42 dB</div>
+                            <div class="metric-sub-lbl">PSNR Improvement</div>
+                        </div>
+
+                        <div class="metric-card">
+                            <div class="metric-main-val" id="val-ssim">0.924</div>
+                            <div class="metric-lbl">SSIM Structural Similarity</div>
+                        </div>
+
+                        <div class="metric-card">
+                            <div class="metric-main-val" id="val-fidelity">99.81%</div>
+                            <div class="metric-lbl">Radiometric Fidelity</div>
+                        </div>
+
+                        <div class="metric-card">
+                            <div class="metric-main-val" id="val-safe">84.6%</div>
+                            <div class="metric-lbl">Safe Touchdown Area</div>
+                        </div>
+                    </div>
+
+                    <!-- SIDEBAR MODE PILL TOGGLE (3 MODES: 4X SUPER-RES | HAZARD MASK | SLOPE MAP) -->
+                    <div class="sidebar-mode-toggle">
+                        <div class="mode-pill-toggle">
+                            <button id="toggle-superres" class="pill-btn active" onclick="setMode('super_res')">
+                                4X Super-Resolution
+                            </button>
+                            <button id="toggle-hazard" class="pill-btn" onclick="setMode('hazard')">
+                                Hazard Mask
+                            </button>
+                            <button id="toggle-slope" class="pill-btn" onclick="setMode('slope')">
+                                Slope Map
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- HAZARD LANDING SUMMARY CARD WITH EMBEDDED ANALYTICS & SFD GRAPHS -->
+                    <div class="summary-card">
+                        <div class="summary-title">HAZARD LANDING SUMMARY</div>
+
+                        <div class="summary-divider"></div>
+
+                        <div class="summary-item">
+                            <span>Boulders (>1m):</span>
+                            <strong id="val-boulders">37</strong>
+                        </div>
+
+                        <div class="summary-item">
+                            <span>Max Slope Angle:</span>
+                            <strong id="val-slope">5.4°</strong>
+                        </div>
+
+                        <div class="summary-item">
+                            <span>Solar Illumination:</span>
+                            <strong id="val-illumination">0.4% Direct Sunlight</strong>
+                        </div>
+
+                        <div class="summary-divider" style="margin-top: 4px;"></div>
+
+                        <!-- EMBEDDED ANALYTICS & SFD GRAPHS -->
+                        <div class="card-analytics-section">
+                            <div class="card-analytics-row">
+                                <!-- MINI CHART 1: BOULDER SFD BAR GRAPH -->
+                                <div class="mini-chart-box">
+                                    <div class="mini-chart-lbl">BOULDER SFD DENSITY</div>
+                                    <div id="inline-sfd-chart" class="mini-sfd-bars"></div>
+                                </div>
+
+                                <!-- MINI CHART 2: ELEVATION CROSS-SECTION PROFILE -->
+                                <div class="mini-chart-box">
+                                    <div class="mini-chart-lbl">ELEVATION PROFILE</div>
+                                    <div id="inline-elevation-chart" class="mini-elev-svg"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- BOTTOM SECTION: 5 SELECTED LUNAR LANDING SPOTS PILL BAR -->
+            <div class="spots-bar-card">
+                <div class="spots-grid" id="spots-grid">
+                    <!-- 5 Spot Pill Buttons dynamically generated here -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="/js/space.js"></script>
+    <script src="/js/slider.js"></script>
+    <script src="/js/radar.js"></script>
+    <script src="/js/main.js"></script>
+
+</body>
+</html>

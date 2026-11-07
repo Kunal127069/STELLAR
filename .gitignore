@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Environment & Operating System files
+.DS_Store
+__MACOSX/
+Thumbs.db
+*.log
+
+# Python cache & build files
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+env/
+venv/
+.env
+
+# Large raw satellite GeoTIFF rasters (>50MB)
+# The application runs out-of-the-box using the bundled benchmark samples in public/images/processed/
+Moon Craters/*/*.tif
+Moon Craters/*.tif
+*.tif
+*.tiff
